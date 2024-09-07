@@ -1,0 +1,27 @@
+﻿version: '3.4'
+
+services:
+  backend:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Username=postgres;Password=admin;Database=messages_go
+    ports:
+      - "5000:8080"
+
+
+  client:
+    image: client
+    build: 
+        context: .
+        dockerfile: client/Dockerfile
+
+  postgres:  
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: messages_go 
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432" 
+
+
